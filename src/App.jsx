@@ -19,6 +19,18 @@ function App() {
     })
     .catch(error => console.error("Error fetching user:", error));
   }, []);
+  //Set up window click event listener
+  useEffect(() => {
+    const handleWindowClick = () => {
+      console.log("Window was clicked!");
+    };
+    window.addEventListener("click", handleWindowClick);
+    //Cleanup to remove the listener on unmount 
+    return () => {
+      window.removeEventListener("click", handleWindowClick);
+    };
+  }, []);
+
   return (
     <div>
       <h1>Hello, {userName}!</h1>
@@ -35,6 +47,7 @@ function App() {
         </div>
       )}
     </div>
-  );
-  
+  );  
 }
+
+export default App; 
