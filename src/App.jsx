@@ -10,6 +10,15 @@ function App() {
   useEffect(() => {
     document.title = `Welcome, ${userName}`;
   }, [userName]);
+  //Fetch Data on Component Mount
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users/1")
+    .then(response => response.json())
+    .then(data => {
+      setUserData(data);
+    })
+    .catch(error => console.error("Error fetching user:", error));
+  }, []);
   return (
     <div>
       <h1>Hello, {userName}!</h1>
@@ -18,6 +27,13 @@ function App() {
       value={userName}
       onChange={(e) => setUserName(e.target.value)}
       />
+      {userData && (
+        <div>
+          <h2>User Info</h2>
+          <p>Nmae:{userData.name}</p>
+          <p>Email: {userData.email}</p>
+        </div>
+      )}
     </div>
   );
   
